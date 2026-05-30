@@ -1,53 +1,43 @@
 package cpit305.fcit.kau.edu.sa;
 
-import java.io.*;
+/**
+ * Student Name: Mohammed Al-Dhani (محمد الضاني)
+ * Student ID: 2336374
+ * Course: CPIT-305 (Advanced Programming)
+ * Assignment: Lab 5 - Java Threads and Word Counting
+ */
 
+import java.io.*;
+import java.nio.file.*;
 
 public class SingleThreadedWordCounter {
-    /**
-     * Counts the number of words in the given file using a single thread
-     * @param filePath Path to the file to count words in
-     * @return the number of words in the file
-     */
+
     public static long countWords(String filePath) throws IOException, IllegalArgumentException {
-        if(filePath == null || filePath.isEmpty()) {
+        if (filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("File path cannot be null or empty");
         }
-        long totalWords = 0;
-
-
-
-        return totalWords;
+        
+        String content = Files.readString(Paths.get(filePath));
+        return countWordsInText(content);
     }
 
-    /**
-     * Counts words in multiple files using a single thread (sequentially)
-     * @param filePaths Array of file paths to count words in
-     * @return Array of word counts corresponding to each file
-     */
     public static long[] countWordsInFiles(String[] filePaths) throws IOException, IllegalArgumentException {
-        if(filePaths == null || filePaths.length == 0) {
-            throw new IllegalArgumentException("File path cannot be null or empty");
+        if (filePaths == null || filePaths.length == 0) {
+            throw new IllegalArgumentException("File paths cannot be null or empty");
         }
 
         long[] wordCounts = new long[filePaths.length];
-
-
-
+        for (int i = 0; i < filePaths.length; i++) {
+            wordCounts[i] = countWords(filePaths[i]);
+        }
         return wordCounts;
     }
 
-    /**
-     * Helper method that counts words in a given text
-     */
     private static long countWordsInText(String text) {
-        if (text == null || text.isEmpty()) {
+        if (text == null || text.trim().isEmpty()) {
             return 0;
         }
-
-
-
-
-        return 0;
+        String[] words = text.trim().split("\\s+");
+        return words.length;
     }
 }
